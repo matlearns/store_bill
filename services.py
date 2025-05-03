@@ -33,21 +33,30 @@ class Service:
         except Exception as e:
             print(f"Fix the error {e}")
             self.mydb.rollback()
-    
 
     def update_service(self): #Remain to work to reduce security risks.
         try:
-            query = input("Type 'service_code' or 'service' to update: ")
-            selection = input(f"Which {query} do you want to update: ")
-            """Start your work from here..."""
+            options = {
+                '1': 'service_code',
+                '2': 'service',
+                '3': 'cost_price', #Update code: If i change the price of one item, all similar prices would change. Fix it in sql with adding an input field to identify which particular column you intended to change
+                '4': 'maintenance_cost'
+            }
+
+            query = input("Enter 1 to change service code, 2 to service, 3 to cost price, and 4 to maintenance cost: "). strip()
             
-            change_column = input("Type name or address or contact or sex to update Name, Address, Contact, and Sex: ")
-            change_value = input(f"Type the {change_column} of account number {account_number} to change: ")
-            sql = f"UPDATE customer_info SET {change_column} = %s WHERE account_no = %s"
-            values = (change_value, account_number)
+            if query not in options:
+                print("Value must be 1 to 4 entered.")
+                return    
+            
+            column = options[query]
+            old_value = input(f"What do you want to change of {column}: ").strip()
+            new_value = input(f"What is your new value of {column}: ").strip()
+            sql = f"UPDATE cost_calculation SET {column} = %s WHERE {column} = %s" #this sql cause serious issue by changing all price, where are data are not unique
+            values = (new_value, old_value)
             self.mycursor.execute(sql, values)
             self.mydb.commit()
-            print(f"Successfully {change_column} updated to {change_value} of account number {account_number}.") 
+            print(f"Successfully updated {column} from {old_value} to {new_value}.") 
 
         except Exception as e:
             print(f"Fix the error {e}")
@@ -58,10 +67,13 @@ class Service:
         self.mycursor.close()
         self.mydb.close()
 
-command = int(input("Press 1 to add item: "))
+command = int(input("Press 1 to add item, 2 to update item: "))
 
 service = Service()
 if command == 1:
     service.insert_service()
+elif command ==2:
+    service.update_service()
+
 else:
     raise ValueError("Enter proper command in number.")

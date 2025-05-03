@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2025 at 02:52 AM
+-- Generation Time: May 03, 2025 at 04:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -106,7 +106,7 @@ ALTER TABLE `cost_calculation`
 -- AUTO_INCREMENT for table `cost_calculation`
 --
 ALTER TABLE `cost_calculation`
-  MODIFY `item_number` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `item_number` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
